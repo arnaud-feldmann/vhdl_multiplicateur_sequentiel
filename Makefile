@@ -21,7 +21,7 @@ $(foreach test,$(TESTS),$(eval $(call test_template,$(test))))
 
 test: $(TESTS)
 	@for test in $(TESTS); do \
-		./$$test; \
+		ghdl -r $(GHDLFLAGS) $$test; \
 		done
 
 %.ghw: %
