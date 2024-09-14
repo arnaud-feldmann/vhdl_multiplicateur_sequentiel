@@ -12,6 +12,7 @@ all: $(TESTS)
 
 define test_template =
 $(1): $$(DEPENDENCIES_$(1)) 
+	mkdir -p work
 	$$(foreach file,$$(DEPENDENCIES_$(1)),ghdl -a $(GHDLFLAGS) --workdir=work $$(file);)
 	ghdl -e $(GHDLFLAGS) $(1)
 endef
