@@ -32,9 +32,9 @@ test: $(TESTS)
 %.vcd: %
 	./$< --vcd=$@
 
-vcd: $(addsuffix .ghw, $(TESTS)) 
+vcd: $(addsuffix .vcd, $(TESTS)) 
 
-ghw: $(addsuffix .vcd, $(TESTS))
+ghw: $(addsuffix .ghw, $(TESTS))
 
 clean:
 	ghdl --clean $(GHDLFLAGS)
