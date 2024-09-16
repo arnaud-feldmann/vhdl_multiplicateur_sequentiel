@@ -8,4 +8,14 @@ reg_a_test
 reg_b_test
 reg_m_test
 uc_test
+db
+incremental_db
+output_files
+simulation
+tp_vhdl_assignment_defaults.qdf
+tp_vhdl_nativelink_simulation.rpt
+tp_vhdl.qpf
+tp_vhdl.qsf
+qar_info.json
+
 

@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use std.env.all;
 
 entity reg_m_test is
     end entity;
@@ -69,7 +70,7 @@ begin
         assert sortie = "1110000000" report "Em off ça ne change pas" severity error;
         wait for 100 ns;
         assert sortie = "1110000000" report "Em off ça ne change pas" severity error;
-        std.env.finish;
+        finish;
     end process;
 
 end architecture;
