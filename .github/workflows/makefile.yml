@@ -26,11 +26,16 @@ jobs:
     - name: Générer les ghw et les vcd
       run: make ghw && make vcd
       
-    - name: Uploader les ghw et vcd
+    - name: Uploader les ghw
       uses: actions/upload-artifact@v4
       with:
         name: ghw
         path: |
           *.ghw
-          *.vcd
 
+    - name: Uploader les vcd
+      uses: actions/upload-artifact@v4
+      with:
+        name: vcd
+        path: |
+          *.ghw
