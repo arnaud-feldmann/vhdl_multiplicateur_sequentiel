@@ -38,4 +38,4 @@ jobs:
       with:
         name: vcd
         path: |
-          *.ghw
+          *.vcd
