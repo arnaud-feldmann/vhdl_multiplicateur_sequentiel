@@ -11,11 +11,15 @@ GHDLFLAGS= --std=08 --workdir=work
 
 all: $(TESTS)
 
-define test_template =
-$(1): $$(DEPENDENCIES_$(1)) 
+%.compiled: %.vhd
 	mkdir -p work
-	$$(foreach file,$$(DEPENDENCIES_$(1)),ghdl -a $(GHDLFLAGS) --workdir=work $$(file);)
+	ghdl -a $(GHDLFLAGS) --workdir=work $<
+	touch $@
+
+define test_template =
+$(1): $$(addsuffix .compiled, $$(basename $$(DEPENDENCIES_$(1))))
 	ghdl -e $(GHDLFLAGS) $(1)
+	$$(foreach file,$$(DEPENDENCIES_$(1)),touch $$(basename $$(file));)
 endef
 
 $(foreach test,$(TESTS),$(eval $(call test_template,$(test))))
@@ -26,20 +30,21 @@ test: $(TESTS)
 		ghdl -r $(GHDLFLAGS) $$test; \
 		done
 
-%.ghw: %
-	./$< --wave=$@
+%.ghw: %.compiled
+	ghdl -r $(GHDLFLAGS) $(basename $<) --wave=$@
 
-%.vcd: %
-	./$< --vcd=$@
+%.vcd: %.compiled
+	ghdl -r $(GHDLFLAGS) $(basename $<) --vcd=$@
 
 vcd: $(addsuffix .vcd, $(TESTS)) 
 
 ghw: $(addsuffix .ghw, $(TESTS))
 
 clean:
-	ghdl --clean $(GHDLFLAGS)
+	ghdl --clean $(GHDLFLAGS) 2>/dev/null
 	rm -rf work
 	rm -f $(TESTS)
 	rm -f $(addsuffix .vcd, $(TESTS))
 	rm -f $(addsuffix .ghw, $(TESTS))
+	rm -f $(foreach test,$(TESTS),$(addsuffix .compiled, $(basename $(DEPENDENCIES_$(test)))))
 

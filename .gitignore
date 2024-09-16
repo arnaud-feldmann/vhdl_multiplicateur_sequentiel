@@ -2,6 +2,7 @@
 *.o
 *.ghw
 *.vcd
+*.compiled
 additionneur_test
 bascule_d_test
 reg_a_test
@@ -17,5 +18,4 @@ tp_vhdl_nativelink_simulation.rpt
 tp_vhdl.qpf
 tp_vhdl.qsf
 qar_info.json
-
 
