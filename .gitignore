@@ -3,6 +3,7 @@
 *.ghw
 *.vcd
 *.compiled
+*.analysed
 additionneur_test
 bascule_d_test
 reg_a_test

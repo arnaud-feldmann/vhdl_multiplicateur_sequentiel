@@ -19,7 +19,7 @@ all: $(TESTS)
 define test_template =
 $(1): $$(addsuffix .compiled, $$(basename $$(DEPENDENCIES_$(1))))
 	ghdl -e $(GHDLFLAGS) $(1)
-	$$(foreach file,$$(DEPENDENCIES_$(1)),touch $$(basename $$(file));)
+	touch $(1)
 endef
 
 $(foreach test,$(TESTS),$(eval $(call test_template,$(test))))
@@ -30,10 +30,10 @@ test: $(TESTS)
 		ghdl -r $(GHDLFLAGS) $$test; \
 		done
 
-%.ghw: %.compiled
+%.ghw: %
 	ghdl -r $(GHDLFLAGS) $(basename $<) --wave=$@
 
-%.vcd: %.compiled
+%.vcd: %
 	ghdl -r $(GHDLFLAGS) $(basename $<) --vcd=$@
 
 vcd: $(addsuffix .vcd, $(TESTS)) 
